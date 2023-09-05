@@ -1,7 +1,7 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/3YQtLipU)
 # Projekt: Hotel Buchungsoberfläche
 
-Team B: Linda Drucker, Hannah Gottlieb-Kettl, Sebastian Wintersberger
+Team B: Linda Drucker, Hannah Gottlieb-Kettl, Sebastian Wintersperger
 
 ---
 ## Kontext und Einordnung
@@ -40,7 +40,7 @@ Die Anwendung wird besonders für Mobile Endgeräte entwickelt, soll aber auch a
 Example Result
 ```json
   [
-    { 
+    {
       "id": 1,
       "roomNumber":  11,
       "roomName": "Junior Suite",
@@ -543,9 +543,8 @@ Diese Userstory markiert (wenn 1-7 auch erledigt sind) den zweiten Milestone und
 
 Es sind drei Milestones definiert. Diese sind in der Tabelle unten beschrieben.
 
-| Milestone | Tasks              | Deadline              | Peer Review  | 
+| Milestone | Tasks              | Deadline              | Peer Review  |
 |-----------|--------------------|-----------------------|--------------|
 | 1         | Paperprototype, U1 | bis LE4               | Ja           |
 | 2         | U2-U4              | bis LE6               | Ja           |
 | 3         | U5-U7              | +1 Woche nach LV Ende | Nein         |
-
