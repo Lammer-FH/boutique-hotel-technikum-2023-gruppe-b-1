@@ -5,17 +5,17 @@
         img-width="1000" img-height="700" style="text-shadow: 1px 1px 2px #333;" @sliding-start="onSlideStart"
         @sliding-end="onSlideEnd">
 
-        <b-carousel-slide caption="Traditionell" text="Boutique Hotel Technikum"
-          img-src="../../public/images/carousel01.webp" style="text-shadow: 4px 4px 8px black;"></b-carousel-slide>
+        <b-carousel-slide caption="Traditionell" text="Boutique Hotel Technikum" img-src="../../images/carousel01.webp"
+          style="text-shadow: 4px 4px 8px black;"></b-carousel-slide>
 
         <b-carousel-slide caption="Entspannend" text="Boutique Hotel Technikum"
-          img-src="../../public/images/carousel02.webp"></b-carousel-slide>
+          img-src="../../images/carousel02.webp"></b-carousel-slide>
 
         <b-carousel-slide caption="Modern" text="Boutique Hotel Technikum"
-          img-src="../../public/images/carousel03.webp"></b-carousel-slide>
+          img-src="../../images/carousel03.webp"></b-carousel-slide>
 
         <b-carousel-slide caption="Freundlich" text="Boutique Hotel Technikum"
-          img-src="../../public/images/carousel04.webp"></b-carousel-slide>
+          img-src="../../images/carousel04.webp"></b-carousel-slide>
 
       </b-carousel>
     </div>

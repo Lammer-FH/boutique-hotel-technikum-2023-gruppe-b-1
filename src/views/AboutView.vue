@@ -3,7 +3,7 @@
     <div id="content">
         <b-container class="card-container">
             <b-card-group>
-                <b-card img-src="../../public/images/restaurant.webp" img-height="400px" img-alt="Restaurant" img-top
+                <b-card img-src="../../images/restaurant.webp" img-height="400px" img-alt="Restaurant" img-top
                     border-variant="secondary" header="Unser Restaurant" header-border-variant="secondary" align="center">
                     <b-card-text>
                         In unserem prämierten Restaurant können Sie den Tag gemütlich bei einem Dinner ausklingen lassen.
@@ -16,7 +16,7 @@
                     </b-card-text>
                 </b-card>
 
-                <b-card img-src="../../public/images/wellness02.webp" img-alt="Wellnessbereich" img-height="400px" img-top
+                <b-card img-src="../../images/wellness02.webp" img-alt="Wellnessbereich" img-height="400px" img-top
                     border-variant="secondary" header="Der Wellnessbereich" header-border-variant="secondary"
                     align="center">
                     <b-card-text>
@@ -34,7 +34,7 @@
             </b-card-group>
             <br />
             <b-row>
-                <b-card img-src="../../public/images/wellness.webp" img-alt="Unser Wellnessbereich" img-top
+                <b-card img-src="../../images/wellness.webp" img-alt="Unser Wellnessbereich" img-top
                     border-variant="secondary" header="Der Wellnessbereich" header-border-variant="secondary"
                     align="center">
                     <b-card-text>
