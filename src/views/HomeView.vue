@@ -114,7 +114,7 @@ export default {
   position: fixed;
   bottom: 50px;
   left: 50px;
-  background-color: #B45F04;
+  background-color: var(--primary);
   color: #fff;
   width: 150px;
   height: 150px;
@@ -124,11 +124,10 @@ export default {
   padding: 0 20px;
   line-height: 40px;
   cursor: pointer;
-  box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.2);
 }
 
 .fab:hover {
-  background-color: yellow;
-  color: black;
+  background-color: var(--primary-hover);
 }
 </style>
