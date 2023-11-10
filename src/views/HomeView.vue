@@ -111,7 +111,6 @@ export default {
 }
 
 .fab {
-  font-family: 'Papyrus', sans-serif;
   position: fixed;
   bottom: 50px;
   left: 50px;
