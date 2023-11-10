@@ -1,7 +1,9 @@
 <template>
   <div>
     <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'dark'">
-      <BNavbarBrand href="#">NavBar</BNavbarBrand>
+      <BNavbarBrand href="#">
+        <img src="../images/logo.png" class="logo" alt="Website Logo" />
+      </BNavbarBrand>
       <BNavbarToggle target="nav-collapse" />
       <BCollapse id="nav-collapse" is-nav>
         <BNavbarNav>
@@ -40,4 +42,8 @@ export default {
 </script>
 
 <style scoped>
+.logo {
+  height: 70px;
+  width: auto;
+}
 </style>
