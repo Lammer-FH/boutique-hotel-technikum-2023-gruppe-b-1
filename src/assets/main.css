@@ -4,6 +4,7 @@
   font-family: 'Archivo', sans-serif;
   --primary: #264489;
   --primary-hover: #3057B0;
+  --rounded-sm: 0.25rem;
   ;
 }
 
