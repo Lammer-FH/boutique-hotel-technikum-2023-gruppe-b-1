@@ -2,17 +2,17 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import { BASE_URL } from '../config/constants.js'
 
-export const useRoomStore = defineStore('store', {
+export const useRoomStore = defineStore('rooms', {
   state: () => ({
     rooms: [],
     init: false,
   }),
   getters: {
     async getRoomById(id) {
-      if (!state.init) {
+      if (!this.init) {
         await this.initRooms()
       }
-      return state.rooms.find(room => room.id === id)
+      return this.rooms.find(room => room.id === id)
     },
   },
   actions: {
