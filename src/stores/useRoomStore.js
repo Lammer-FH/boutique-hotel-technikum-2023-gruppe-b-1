@@ -24,9 +24,6 @@ export const useRoomStore = defineStore('rooms', {
         this.rooms = response.data
         this.init = true
       })
-    },
-    preSelectRoom(roomId) {
-      console.log('preSelectRoom', roomId)
     }
   }
 })

@@ -1,4 +1,5 @@
 <template>
+   {{ $route.params.id }}
     <div class="base-container">
     </div>
     <div>
@@ -11,7 +12,7 @@
             required
           ></b-form-input>
         </b-form-group>
-       
+
         <b-form-group id="input-group-2" label="Nachname:" label-for="input-2">
           <b-form-input
             id="input-2"
@@ -20,7 +21,7 @@
             required
           ></b-form-input>
         </b-form-group>
-       
+
         <b-form-group
           id="input-group-3"
           label="E-Mail-Adresse:"
@@ -49,7 +50,7 @@
        </b-form-input>
         </b-form-group>
 
-  
+
         <b-form-group id="input-group-5" v-slot="{ ariaDescribedby }">
           <b-form-checkbox-group
             v-model="form.checked"
@@ -60,12 +61,12 @@
             <b-form-checkbox value="registration">Registrieren?</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
-  
+
         <b-button type="submit" id="btn" variant="primary" v-on:click="submitForm">Absenden</b-button>
       </b-form>
     </div>
   </template>
-  
+
   <script>
     import { BForm, BButton } from 'bootstrap-vue-next'
     import Room from '../components/Room.vue'
@@ -118,7 +119,7 @@
         },
         displayRoom(roomId) {
             this.roomId = useRoomStore.$id;
-            
+
         }
       }
     }
