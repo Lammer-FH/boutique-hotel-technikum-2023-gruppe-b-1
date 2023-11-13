@@ -7,7 +7,14 @@
             </div>
             <h2>{{ room.roomsName }}</h2>
             <RoomExtrasList :extras="room?.extras" />
-            <BButton variant="primary" @click="preSelectRoom(room.id)">Buchen</BButton>
+            <div class="room-info-container">
+                <span>{{ room.pricePerNight }}€/Nacht</span>
+                <span>{{ room.beds }} Bett(en)</span>
+            </div>
+            <div class="footer">
+                <BButton variant="primary" @click="preSelectRoom(room.id)">Buchen</BButton>
+            </div>
+
         </div>
     </BCard>
 </template>
@@ -56,13 +63,34 @@ export default {
 }
 
 .room-container {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
 .room-fixed-width {
     width: 22rem;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.room-info-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    >span {
+        background-color: rgba(var(--primary-values), 0.2);
+        padding: 0.5rem;
+        border-radius: var(--rounded-sm);
+    }
 }
 </style>
