@@ -2,7 +2,9 @@
 
 :root {
   font-family: 'Archivo', sans-serif;
-  --primary: #264489;
+  --primary-values: 38, 67, 135;
+  /* für die Verwendung mit rgba*/
+  --primary: #264387;
   --primary-hover: #3057B0;
   --rounded-sm: 0.25rem;
   ;
