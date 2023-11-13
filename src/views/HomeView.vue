@@ -48,15 +48,23 @@
       in Wien zu bieten.</p>
   </div>
 
-  <b-button class="fab" @click="handleFabClick">Jetzt buchen!</b-button>
+  <b-button class="fab" @click="handleFabClick">Jetzt buchen</b-button>
 </template>
 
 <script>
 import { BButton, BAlert } from 'bootstrap-vue-next';
+import { useRouter } from 'vue-router';
 
 export default {
   components: {
     BButton,
+  },
+  setup() {
+    const router = useRouter();
+
+    return {
+      router,
+    };
   },
   data() {
     return {
@@ -66,7 +74,7 @@ export default {
   },
   methods: {
     handleFabClick() {
-      alert('Button wurde geklickt!');
+      this.router.push('/rooms')
     },
     onSlideStart(slide) {
       this.sliding = true;
