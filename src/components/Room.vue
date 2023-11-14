@@ -12,7 +12,7 @@
                 <span>{{ room.beds }} Bett(en)</span>
             </div>
             <div class="footer">
-                <BButton variant="primary" @click="router.push({
+                <BButton variant="primary" v-if="!$props.preview" @click="router.push({
                     name: 'reservation',
                     params: { id: room.id }
                 })">Buchen</BButton>
@@ -43,6 +43,11 @@ export default {
             type: Object,
             required: true,
         },
+        preview: {
+            type: Boolean,
+            required: false,
+
+        }
     },
 }
 </script>
@@ -89,11 +94,11 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 1rem;
+}
 
-    >span {
-        background-color: rgba(var(--primary-values), 0.2);
-        padding: 0.5rem;
-        border-radius: var(--rounded-sm);
-    }
+.room-info-container > span {
+    background-color: rgba(var(--primary-values), 0.2);
+    padding: 0.5rem;
+    border-radius: var(--rounded-sm);
 }
 </style>
