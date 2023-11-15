@@ -13,20 +13,22 @@
       </b-form-group>
 
       <b-form-group id="input-group-3" label="E-Mail-Adresse:" label-for="input-3"> </b-form-group>
-
       <b-form-input :disabled="formToReview" id="input-3" v-model="form.email" type="email" placeholder="E-Mail" required></b-form-input>
 
       <b-form-group id="input-group-4" label="E-Mail-Adresse wiederholen:" label-for="input-4">
         <b-form-input :disabled="formToReview" v-model="eMailValidator" id="input-4" type="email" placeholder="E-Mail-Adresse wiederholen" required>
         </b-form-input>
       </b-form-group>
-      <BAlert v-if="!emailValid" :model-value="true" variant="warning" >E-Mail-Adressen stimmt nicht überein.</BAlert>
+      <BAlert v-if="!emailValid" :model-value="true" variant="warning" >E-Mail-Adressen stimmen nicht überein.</BAlert>
 
       <label for="example-datepicker">Anreise</label>
    <b-form-input :disabled="formToReview" id="input-5" v-model="arrival" type="date" placeholder="Anreisedatum" required></b-form-input>
 
     <label for="example-datepicker">Abreise</label>
    <b-form-input :disabled="formToReview" id="input-6" v-model="departure" type="date" placeholder="Abreisedatum" required></b-form-input>
+
+   <BAlert v-if="!departureBeforeArrival" :model-value="true" variant="warning" >An- und Abreisedatum überprüfen.</BAlert>
+
 
 
       <b-form-group id="input-group-5" v-slot="{ ariaDescribedby }">
@@ -36,7 +38,7 @@
         </b-form-checkbox-group>
       </b-form-group>
       
-      <b-button type="submit" id="btn" variant="primary" @click="submitForm" :disabled="!emailValid">{{ formToReview ? 'Bestätigen' : 'Buchen'}}</b-button>
+      <b-button type="submit" id="btn" variant="primary" @click="submitForm" :disabled="!emailValid || !emptyInputs || !departureBeforeArrival">{{ formToReview ? 'Bestätigen' : 'Buchen'}}</b-button>
     </b-form>
   </div>
 </template>
@@ -46,6 +48,8 @@ import { BForm, BButton, BAlert,  } from 'bootstrap-vue-next'
 import Room from '../components/Room.vue'
 import { useRoomStore } from '../stores/useRoomStore.js';
 import { useRoute } from 'vue-router';
+import { now } from '@vueuse/shared';
+import { useNow } from '@vueuse/core';
 
 // TODO: Buchen button disablen, wenn: E-Mail-Adressen nicht übereinstimmen, oder wenn felder leer sind oder wenn abreise vor anreise ist
 export default {
@@ -95,6 +99,21 @@ export default {
         return true
       }
       return false
+    },
+    emptyInputs() {
+      if (this.form.firstName?.length == 0 || this.form.lastName?.length == 0 || 
+      this.form.email?.length == 0 || this.eMailValidator?.length == 0 ) {
+        return false
+      } else {
+        return true
+      }
+      },
+      departureBeforeArrival() {
+        if (this.departure < this.arrival) {
+          return false
+        } else {
+          return true
+        }
     }
   },
   methods: {
