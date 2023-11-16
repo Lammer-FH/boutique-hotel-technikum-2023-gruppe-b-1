@@ -14,6 +14,10 @@
           required></b-form-input>
       </b-form-group>
 
+      <label for="example-datepicker">Geburtsdatum</label>
+      <b-form-input :disabled="formToReview" id="input-7" v-model="form.birthdate" type="date" placeholder="Geburtsdatum"
+        required></b-form-input>
+
       <b-form-group id="input-group-3" label="E-Mail-Adresse:" label-for="input-3"> </b-form-group>
       <b-form-input :disabled="formToReview" id="input-3" v-model="form.email" type="email" placeholder="E-Mail"
         required></b-form-input>
@@ -75,6 +79,7 @@ export default {
         email: '',
         arrival: '',
         departure: '',
+        birthdate: '',
         checked: []
       },
       emailValidator: '',
