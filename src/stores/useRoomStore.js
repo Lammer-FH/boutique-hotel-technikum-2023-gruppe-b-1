@@ -7,14 +7,6 @@ export const useRoomStore = defineStore('rooms', {
     rooms: [],
     init: false,
   }),
-  getters: {
-    async getRoomById(id) {
-      if (!this.init) {
-        await this.initRooms()
-      }
-      return this.rooms.find(room => room.id === id)
-    },
-  },
   actions: {
     initRooms(force) {
       if (this.init && !force) {
@@ -25,8 +17,11 @@ export const useRoomStore = defineStore('rooms', {
         this.init = true
       })
     },
-    preSelectRoom(roomId) {
-      console.log('preSelectRoom', roomId)
+    getRoomById(id) {
+      return this.rooms.find(room => room.id === id)
+    },
+    bookRoom(id, form) {
+      console.log('bookRoom', id, form)
     }
   }
 })

@@ -12,7 +12,10 @@
                 <span>{{ room.beds }} Bett(en)</span>
             </div>
             <div class="footer">
-                <BButton variant="primary" @click="preSelectRoom(room.id)">Buchen</BButton>
+                <BButton variant="primary" v-if="!$props.preview" @click="router.push({
+                    name: 'reservation',
+                    params: { id: room.id }
+                })">Buchen</BButton>
             </div>
 
         </div>
@@ -22,7 +25,7 @@
 <script>
 import { BCard, BButton } from 'bootstrap-vue-next';
 import RoomExtrasList from './RoomExtrasList.vue';
-import { useRoomStore } from '../stores/useRoomStore';
+import { useRouter } from 'vue-router';
 export default {
     components: {
         BCard,
@@ -30,9 +33,9 @@ export default {
         RoomExtrasList
     },
     setup() {
-        const roomStore = useRoomStore();
+        const router = useRouter();
         return {
-            preSelectRoom: roomStore.preSelectRoom,
+            router
         }
     },
     props: {
@@ -40,6 +43,11 @@ export default {
             type: Object,
             required: true,
         },
+        preview: {
+            type: Boolean,
+            required: false,
+
+        }
     },
 }
 </script>
@@ -86,11 +94,11 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 1rem;
+}
 
-    >span {
-        background-color: rgba(var(--primary-values), 0.2);
-        padding: 0.5rem;
-        border-radius: var(--rounded-sm);
-    }
+.room-info-container > span {
+    background-color: rgba(var(--primary-values), 0.2);
+    padding: 0.5rem;
+    border-radius: var(--rounded-sm);
 }
 </style>
