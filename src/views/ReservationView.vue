@@ -58,10 +58,8 @@ import { BForm, BButton, BAlert, } from 'bootstrap-vue-next'
 import Room from '../components/Room.vue'
 import { useRoomStore } from '../stores/useRoomStore.js';
 import { useRoute } from 'vue-router';
-import { now } from '@vueuse/shared';
-import { useNow } from '@vueuse/core';
 
-// TODO: Buchen button disablen, wenn: E-Mail-Adressen nicht übereinstimmen, oder wenn felder leer sind oder wenn abreise vor anreise ist
+
 export default {
   components: {
     BForm,
