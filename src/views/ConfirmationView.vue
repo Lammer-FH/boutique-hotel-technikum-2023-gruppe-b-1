@@ -1,7 +1,7 @@
 <template>
-    <h1 style="text-align: center;">Buchungsbestätigung</h1>
+    <h1 style="text-align: center;">Buchungs-Bestätigung</h1>
     <div class="confirmation-container">
-        <BButton class="print-button no-print" @click="print()">
+        <BButton class=" no-print" @click="print()">
             <IconPrint /> Drucken
         </BButton>
         <Room :room="booking.room" preview />
@@ -66,6 +66,13 @@ export default {
     gap: 1rem;
 }
 
+@media (max-width: 768px) {
+    .confirmation-container {
+        flex-direction: column;
+    }
+
+}
+
 .form-list {
     padding: 1rem;
 
@@ -96,11 +103,5 @@ export default {
     }
 
 
-}
-
-.print-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
 }
 </style>
