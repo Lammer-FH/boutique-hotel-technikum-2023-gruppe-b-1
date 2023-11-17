@@ -136,6 +136,17 @@ export default {
   z-index: 1;
 }
 
+@media (max-width: 768px) {
+  .fab {
+    bottom: 1rem;
+    left: 1rem;
+    width: 5rem;
+    height: 5rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+}
+
 .fab:hover {
   background-color: var(--primary-hover);
   filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.7));
