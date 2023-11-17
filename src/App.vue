@@ -2,7 +2,7 @@
   <BToaster />
 
   <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'dark'" class="no-print">
-    <BNavbarBrand href="#">
+    <BNavbarBrand href="/">
       <img src="../images/logo.png" class="logo" alt="Website Logo" />
     </BNavbarBrand>
     <BNavbarToggle target="nav-collapse" />
