@@ -14,6 +14,10 @@
           required></b-form-input>
       </b-form-group>
 
+      <label for="example-datepicker">Geburtsdatum</label>
+      <b-form-input :disabled="formToReview" id="input-7" v-model="form.birthdate" type="date" placeholder="Geburtsdatum"
+        required></b-form-input>
+
       <b-form-group id="input-group-3" label="E-Mail-Adresse:" label-for="input-3"> </b-form-group>
       <b-form-input :disabled="formToReview" id="input-3" v-model="form.email" type="email" placeholder="E-Mail"
         required></b-form-input>
@@ -58,6 +62,7 @@ import { BForm, BButton, BAlert, } from 'bootstrap-vue-next'
 import Room from '../components/Room.vue'
 import { useRoomStore } from '../stores/useRoomStore.js';
 import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 
 export default {
@@ -70,12 +75,13 @@ export default {
   data() {
     return {
       form: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        arrival: '',
-        departure: '',
-        checked: []
+        firstName: "",
+        lastName: "",
+        email: "",
+        arrival: "",
+        departure: "",
+        birthdate: "",
+        checked: [""]
       },
       emailValidator: '',
       formToReview: false,
@@ -86,9 +92,11 @@ export default {
   setup() {
     const roomStore = useRoomStore()
     const route = useRoute()
+    const router = useRouter()
     return {
       roomStore,
-      route
+      route,
+      router
     }
   },
   mounted() {
@@ -123,12 +131,15 @@ export default {
     onSubmit(event) {
       event.preventDefault()
     },
-    submitForm() {
+    async submitForm() {
       if (this.formToReview == false) {
         this.formToReview = true
         return
       }
-      this.roomStore.bookRoom(this.preselectedRoom.id, this.form)
+      const success = await this.roomStore.bookRoom(this.preselectedRoom.id, this.form)
+      if (success && this.roomStore.booking) {
+        this.router.push({ name: 'confirmation' })
+      }
     }
   }
 }

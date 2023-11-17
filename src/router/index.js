@@ -1,9 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useRoomStore } from '../stores/useRoomStore'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import ImpressumView from '../views/ImpressumView.vue'
 import AvailableRoomsView from '../views/AvailableRoomsView.vue'
 import ReservationView from '../views/ReservationView.vue'
+import ConfirmationView from '../views/ConfirmationView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,8 +35,29 @@ const router = createRouter({
       path: '/reservation/:id',
       name: 'reservation',
       component: ReservationView
+    },
+    {
+      path: '/confirmation',
+      name: 'confirmation',
+      component: ConfirmationView
     }
   ]
 })
+
+
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'confirmation') {
+    next()
+    return
+  }
+  const roomStore = useRoomStore()
+  if (!roomStore.booking.room) {
+    next({ name: 'home' })
+    return
+  }
+  next()
+})
+
 
 export default router
