@@ -83,6 +83,17 @@ export default {
     width: 22rem;
 }
 
+@media (max-width: 768px) {
+    .image-container {
+        max-width: 80%;
+    }
+
+    .room-fixed-width {
+        width: 100%;
+    }
+}
+
+
 .footer {
     width: 100%;
     display: flex;
@@ -96,7 +107,7 @@ export default {
     gap: 1rem;
 }
 
-.room-info-container > span {
+.room-info-container>span {
     background-color: rgba(var(--primary-values), 0.2);
     padding: 0.5rem;
     border-radius: var(--rounded-sm);

@@ -56,6 +56,7 @@ export default {
     align-items: center;
     padding: 0.5rem 1rem;
     gap: 1rem;
+    margin-bottom: 1rem;
     border: 2px solid var(--primary);
     background-color: rgba(var(--primary-values), 0.2);
     border-radius: var(--rounded-sm);

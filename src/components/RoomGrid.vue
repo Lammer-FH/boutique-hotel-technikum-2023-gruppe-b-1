@@ -1,10 +1,9 @@
 <template>
     <RoomFilter @filter="onFilterChange" />
+    <BPagination v-model="currentPage" pills :total-rows="getRoomsFromFilter(this.filter).length" :per-page="perPage" />
     <div class="room-grid">
         <Room v-for="room in paginatedRooms" :key="room.id" :room="room" />
     </div>
-    <BPagination v-model="currentPage" pills :total-rows="getRoomsFromFilter(this.filter).length" :per-page="perPage"
-        first-text="First" prev-text="Prev" next-text="Next" last-text="Last" />
 </template>
 
 <script>
