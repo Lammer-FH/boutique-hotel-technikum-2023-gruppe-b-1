@@ -35,3 +35,13 @@ div {
   margin: 0;
   font-weight: normal;
 }
+
+
+
+@media print {
+
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+}
