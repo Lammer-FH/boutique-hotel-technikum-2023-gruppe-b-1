@@ -133,7 +133,7 @@ export default {
   cursor: pointer;
   filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.25));
   transition: all 0.2s ease-in-out;
-  z-index: 1;
+  z-index: 2;
 }
 
 @media (max-width: 768px) {
