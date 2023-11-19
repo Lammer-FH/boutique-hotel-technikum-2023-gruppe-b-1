@@ -53,6 +53,7 @@
       <b-button type="submit" id="btn" variant="primary" @click="submitForm"
         :disabled="!emailValid || !emptyInputs || !departureBeforeArrival">{{ formToReview ? 'Bestätigen' :
           'Buchen' }}</b-button>
+      <b-button v-if="formToReview" @click="formToReview = false" variant="danger">Abbrechen</b-button>
     </b-form>
   </div>
 </template>
