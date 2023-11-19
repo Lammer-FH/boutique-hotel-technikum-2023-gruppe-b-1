@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useRoomStore } from '../stores/useRoomStore'
+import { useRoomStore } from '../stores/useRoomStore.js'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import ImpressumView from '../views/ImpressumView.vue'
@@ -45,7 +45,7 @@ const router = createRouter({
 })
 
 
-
+// Router guard to prevent access to confirmation page without a booking
 router.beforeEach((to, from, next) => {
   if (to.name !== 'confirmation') {
     next()
