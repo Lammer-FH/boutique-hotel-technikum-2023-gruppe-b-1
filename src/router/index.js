@@ -37,7 +37,7 @@ const router = createRouter({
       component: ReservationView
     },
     {
-      path: '/confirmation',
+      path: '/confirmation/:id',
       name: 'confirmation',
       component: ConfirmationView
     }

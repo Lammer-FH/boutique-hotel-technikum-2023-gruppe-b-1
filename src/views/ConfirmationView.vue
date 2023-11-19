@@ -1,5 +1,5 @@
 <template>
-    <h1 style="text-align: center;">Buchungs-Bestätigung</h1>
+    <h1 style="text-align: center;">Buchungs-Bestätigung {{ $route.params.id }}</h1>
     <div class="confirmation-container">
         <BButton class=" no-print" @click="print()">
             <IconPrint /> Drucken

@@ -36,7 +36,7 @@ export const useRoomStore = defineStore('rooms', {
     },
     async bookRoom(id, form) {
       this.booking = {}
-      const available = this.checkRoomAvailability(id, form.arrival, form.departure)
+      const available = await this.checkRoomAvailability(id, form.arrival, form.departure)
       if (!available) {
         show('The room you selected is not available for the selected dates.', {
           title: 'Room not available',
@@ -49,15 +49,27 @@ export const useRoomStore = defineStore('rooms', {
         room: this.getRoomById(id),
         form
       }
-      return true // Endpoint does not work so we return true for now TODO: exchange logic if endpoint works again
-      axios.post(`${BASE_URL}/room/${id}/from/${form.arrival}/to/${form.departure}`, {
+
+
+      const response = await axios.post(`${BASE_URL}/room/${id}/from/${form.arrival}/to/${form.departure}`, {
         firstname: form.firstName,
         lastname: form.lastName,
         email: form.email,
         birthdate: form.birthdate,
-      }).then((response) => {
-        console.log('response', response)
       })
+      if (response.status !== 201) {
+        show('Das Zimmer konnte nicht erfolgreich gebucht werden!', {
+          title: 'Unerwarteter Fehler',
+          variant: 'danger'
+        })
+        return false
+      }
+      show('Das Zimmer wurde gebucht!', {
+        title: 'Erfolgreich gebucht',
+        variant: 'success'
+      })
+      router.push({ name: 'confirmation', params: { id: response.data.id } })
+      return true
     }
   }
 })
