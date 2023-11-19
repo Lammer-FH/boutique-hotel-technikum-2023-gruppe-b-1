@@ -1,16 +1,21 @@
 <template>
-    <h1 style="text-align: center;">Buchungs-Bestätigung {{ $route.params.id }}</h1>
+    <h1 style="text-align: center; padding-top: 1rem;">Buchungs-Bestätigung {{ $route.params.id }}</h1>
     <div class="confirmation-container">
-        <BButton class=" no-print" @click="print()">
+        <BButton class="no-print" @click="print()">
             <IconPrint /> Drucken
         </BButton>
-        <Room :room="booking.room" preview />
-        <ul class="form-list card">
-            <li v-for="(value, key) in printableForm" class="form-list-element">
-                <span>{{ key }}</span>
-                <span>{{ value }}</span>
-            </li>
-        </ul>
+        <div class="responsive-flex card">
+            <Room :room="booking.room" preview />
+            <ul class="form-list">
+                <li v-for="(value, key) in bookingFormWithoutBreakfast" class="form-list-element">
+                    <span>{{ key }}</span>
+                    <span>{{ value }}</span>
+                </li>
+                <li v-if="this.booking.form?.checked?.includes('breakfast')">
+                    <ExtrasIconBreakfast /> Inklusive Frühstück
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -18,10 +23,14 @@
 import { useRoomStore } from '../stores/useRoomStore';
 import Room from '../components/Room.vue';
 import IconPrint from '../components/icons/IconPrint.vue'
+import ExtrasIconBreakfast from '../components/icons/ExtrasIconBreakfast.vue';
+import { BCard } from 'bootstrap-vue-next';
 export default {
     components: {
         IconPrint,
-        Room
+        Room,
+        ExtrasIconBreakfast,
+        BCard
     },
     setup() {
         const roomStore = useRoomStore()
@@ -35,17 +44,13 @@ export default {
         }
     },
     computed: {
-        printableForm() {
-            // all elements but change the key checked to include and join the values in the array
-            const niceObj = {}
-            Object.entries(this.booking.form).map(([key, value]) => {
-                if (Array.isArray(value)) {
-                    niceObj[key] = value.join(', ')
-                    return
+        bookingFormWithoutBreakfast() {
+            return Object.entries(this.booking.form).reduce((acc, [key, value]) => {
+                if (key !== 'checked') {
+                    acc[key] = value
                 }
-                niceObj[key] = value
-            })
-            return niceObj
+                return acc
+            }, {})
         }
     },
     methods: {
@@ -59,6 +64,15 @@ export default {
 <style scoped>
 .confirmation-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 1rem;
+}
+
+.responsive-flex {
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -67,10 +81,9 @@ export default {
 }
 
 @media (max-width: 768px) {
-    .confirmation-container {
+    .responsive-flex {
         flex-direction: column;
     }
-
 }
 
 .form-list {
