@@ -15,7 +15,10 @@
                     <ExtrasIconBreakfast /> Inklusive Frühstück
                 </li>
             </ul>
+
         </div>
+        <ContactInfo />
+        <ContactMap />
     </div>
 </template>
 
@@ -25,12 +28,16 @@ import Room from '../components/Room.vue';
 import IconPrint from '../components/icons/IconPrint.vue'
 import ExtrasIconBreakfast from '../components/icons/ExtrasIconBreakfast.vue';
 import { BCard } from 'bootstrap-vue-next';
+import ContactInfo from '../components/ContactInfo.vue';
+import ContactMap from '../components/ContactMap.vue';
 export default {
     components: {
         IconPrint,
         Room,
         ExtrasIconBreakfast,
-        BCard
+        BCard,
+        ContactInfo,
+        ContactMap
     },
     setup() {
         const roomStore = useRoomStore()
