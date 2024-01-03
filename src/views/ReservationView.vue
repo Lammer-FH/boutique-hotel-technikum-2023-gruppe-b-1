@@ -52,8 +52,10 @@
 
         <b-form-input v-if="isChecked" :disabled="formToReview" id="input-7" v-model="form.password" placeholder="Passwort"
           required></b-form-input>
-        <b-form-input v-if="isChecked" :disabled="formToReview" id="input-8" v-model="confirmPassword" placeholder="Passwort wiederholen"
+        <b-form-input v-if="isChecked" :disabled="formToReview" id="input-8" v-model="passwordValidator" placeholder="Passwort wiederholen"
           required></b-form-input>
+          <BAlert v-if="!passwordValid" :model-value="true" variant="warning">Passwörter stimmen nicht überein.</BAlert>
+
 
       <b-button type="submit" id="btn" variant="primary" @click="submitForm"
         :disabled="!emailValid || !emptyInputs || !departureBeforeArrival">{{ formToReview ? 'Bestätigen' :
@@ -93,7 +95,8 @@ export default {
       formToReview: false,
       arrival: Date,
       departure: Date,
-      isChecked: false
+      isChecked: false,
+      passwordValidator: ''
     }
   },
   setup() {
@@ -132,6 +135,15 @@ export default {
     },
     departureBeforeArrival() {
       return this.departure < this.arrival ? false : true;
+    },
+    passwordValid() {
+      if (this.form.password?.length == 0 || this.passwordValidator?.length == 0) {
+        return true
+      }
+      if (this.form.password.trim() === this.passwordValidator.trim()) {
+        return true
+      }
+      return false
     }
   },
   methods: {
