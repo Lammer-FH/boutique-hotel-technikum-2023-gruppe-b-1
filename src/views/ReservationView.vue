@@ -46,9 +46,14 @@
         <b-form-checkbox-group v-model="form.checked" id="checkboxes-5" :aria-describedby="ariaDescribedby"
           :disabled="formToReview">
           <b-form-checkbox value="breakfast">Frühstück?</b-form-checkbox><br />
-          <b-form-checkbox value="registration">Registrieren?</b-form-checkbox>
+          <b-form-checkbox value="registration" id="registration" v-model="isChecked">Registrieren?</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
+
+        <b-form-input v-if="isChecked" :disabled="formToReview" id="input-7" v-model="form.password" placeholder="Passwort"
+          required></b-form-input>
+        <b-form-input v-if="isChecked" :disabled="formToReview" id="input-8" v-model="confirmPassword" placeholder="Passwort wiederholen"
+          required></b-form-input>
 
       <b-button type="submit" id="btn" variant="primary" @click="submitForm"
         :disabled="!emailValid || !emptyInputs || !departureBeforeArrival">{{ formToReview ? 'Bestätigen' :
@@ -82,12 +87,13 @@ export default {
         arrival: "",
         departure: "",
         birthdate: "",
-        checked: [""]
+        checked: [""],
       },
       emailValidator: '',
       formToReview: false,
       arrival: Date,
-      departure: Date
+      departure: Date,
+      isChecked: false
     }
   },
   setup() {
