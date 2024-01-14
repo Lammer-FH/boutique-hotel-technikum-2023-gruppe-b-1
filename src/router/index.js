@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useRoomStore } from '../stores/useRoomStore.js'
+import { useUserStore } from '../stores/useUserStore'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import ImpressumView from '../views/ImpressumView.vue'
@@ -57,6 +58,16 @@ router.beforeEach((to, from, next) => {
     return
   }
   next()
+})
+
+// Router for checking login status
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore();
+  if (to.matched.some(record => record.meta.requiresAuth) && !userStore.isLoggedIn) {
+    next({ name: 'login' }); // Login-Seite ?
+  } else {
+    next(); 
+  }
 })
 
 
