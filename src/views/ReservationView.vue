@@ -55,6 +55,7 @@
         <b-form-input v-if="isChecked" :disabled="formToReview" id="input-8" v-model="passwordValidator" placeholder="Passwort wiederholen"
           required></b-form-input>
           <BAlert v-if="!passwordValid" :model-value="true" variant="warning">Passwörter stimmen nicht überein.</BAlert>
+          
 
 
       <b-button type="submit" id="btn" variant="primary" @click="submitForm"
@@ -62,6 +63,7 @@
           'Buchen' }}</b-button>
       <b-button v-if="formToReview" @click="formToReview = false" variant="danger">Abbrechen</b-button>
     </b-form>
+
   </div>
 </template>
 
@@ -71,6 +73,7 @@ import Room from '../components/Room.vue'
 import { useRoomStore } from '../stores/useRoomStore.js';
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '../stores/useUserStore.js';
 
 
 export default {
@@ -90,6 +93,7 @@ export default {
         departure: "",
         birthdate: "",
         checked: [""],
+        password: ""
       },
       emailValidator: '',
       formToReview: false,
@@ -103,10 +107,12 @@ export default {
     const roomStore = useRoomStore()
     const route = useRoute()
     const router = useRouter()
+    const userStore = useUserStore()
     return {
       roomStore,
       route,
-      router
+      router,
+      userStore
     }
   },
   mounted() {
@@ -155,9 +161,11 @@ export default {
         this.formToReview = true
         return
       }
-      const success = await this.roomStore.bookRoom(this.preselectedRoom.id, this.form)
+      const success = await this.roomStore.bookRoom(this.preselectedRoom.id, this.form) 
+      const registrationSuccess = await this.userStore.registerUser(this.form.firstName, this.form.lastName, this.form.email, this.form.firstName, this.form.password)
       if (success && this.roomStore.booking) {
         this.router.push({ name: 'confirmation' })
+
       }
     }
   }
