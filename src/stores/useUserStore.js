@@ -105,6 +105,10 @@ export const useUserStore = defineStore('user', {
         },
         logoutUser() {
             this.setToken('')
+            show('You have successfully logged out.', {
+                title: 'Success',
+                variant: 'info'
+            })
         }
     }
 })

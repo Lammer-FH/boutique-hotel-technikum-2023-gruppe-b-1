@@ -12,15 +12,21 @@
         <BNavItem href="/about">About</BNavItem>
         <BNavItem href="/impressum">Impressum</BNavItem>
       </BNavbarNav>
-      <!-- Right aligned nav items -->
     </BCollapse>
+    <LoginButton @click="toggleLogin"></LoginButton>
+    <BModal v-model="showLoginModal" title="User Login">
+      <LoginModal @close-login="closeModal" />
+    </BModal>
   </BNavbar>
   <RouterView></RouterView>
 </template>
 
 <script>
 import { RouterView } from 'vue-router';
-import { BNavbar, BNavbarBrand, BNavbarToggle, BCollapse, BNavbarNav, BNavItem } from 'bootstrap-vue-next'
+import { BNavbar, BNavbarBrand, BNavbarToggle, BCollapse, BNavbarNav, BNavItem, BModal } from 'bootstrap-vue-next'
+import LoginButton from './components/LoginButton.vue';
+import LoginModal from './components/LoginModal.vue';
+import { useUserStore } from './stores/useUserStore';
 export default {
   components: {
     BNavbar,
@@ -28,13 +34,32 @@ export default {
     BNavbarToggle,
     BCollapse,
     BNavbarNav,
-    BNavItem
+    BNavItem,
+    BModal,
+    LoginButton,
+    LoginModal
   },
   setup() {
-    return {}
+    const userStore = useUserStore();
+    return {
+      userStore
+    }
   },
   data() {
     return {
+      showLoginModal: false
+    }
+  },
+  methods: {
+    toggleLogin() {
+      if (this.userStore.isLoggedIn) {
+        this.userStore.logoutUser();
+        return
+      }
+      this.showLoginModal = !this.showLoginModal;
+    },
+    closeModal() {
+      this.showLoginModal = false;
     }
   }
 
