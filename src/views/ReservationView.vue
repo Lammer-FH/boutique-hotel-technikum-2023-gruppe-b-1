@@ -46,16 +46,17 @@
         <b-form-checkbox-group v-model="form.checked" id="checkboxes-5" :aria-describedby="ariaDescribedby"
           :disabled="formToReview">
           <b-form-checkbox value="breakfast">Frühstück?</b-form-checkbox><br />
-          <b-form-checkbox value="registration" id="registration" v-model="isChecked">Registrieren?</b-form-checkbox>
+          <b-form-checkbox value="registration" id="registration">Registrieren?</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
 
-        <b-form-input v-if="isChecked" :disabled="formToReview" id="input-7" v-model="form.password" placeholder="Passwort"
-          required></b-form-input>
-        <b-form-input v-if="isChecked" :disabled="formToReview" id="input-8" v-model="passwordValidator" placeholder="Passwort wiederholen"
-          required></b-form-input>
-          <BAlert v-if="!passwordValid" :model-value="true" variant="warning">Passwörter stimmen nicht überein.</BAlert>
-          
+
+      <b-form-input type="password" v-if="registrationChecked" :disabled="formToReview" id="input-7"
+        v-model="form.password" placeholder="Passwort" required></b-form-input>
+      <b-form-input type="password" v-if="registrationChecked" :disabled="formToReview" id="input-8"
+        v-model="passwordValidator" placeholder="Passwort wiederholen" required></b-form-input>
+      <BAlert v-if="!passwordValid" :model-value="true" variant="warning">Passwörter stimmen nicht überein.</BAlert>
+
 
 
       <b-button type="submit" id="btn" variant="primary" @click="submitForm"
@@ -142,6 +143,9 @@ export default {
     departureBeforeArrival() {
       return this.departure < this.arrival ? false : true;
     },
+    registrationChecked() {
+      return this.form.checked.includes('registration')
+    },
     passwordValid() {
       if (this.form.password?.length == 0 || this.passwordValidator?.length == 0) {
         return true
@@ -161,11 +165,10 @@ export default {
         this.formToReview = true
         return
       }
-      const success = await this.roomStore.bookRoom(this.preselectedRoom.id, this.form) 
-      const registrationSuccess = await this.userStore.registerUser(this.form.firstName, this.form.lastName, this.form.email, this.form.firstName, this.form.password)
+      const success = await this.roomStore.bookRoom(this.preselectedRoom.id, this.form)
       if (success && this.roomStore.booking) {
+        await this.userStore.registerUser(this.form.firstName, this.form.lastName, this.form.email, this.form.firstName, this.form.password)
         this.router.push({ name: 'confirmation' })
-
       }
     }
   }
