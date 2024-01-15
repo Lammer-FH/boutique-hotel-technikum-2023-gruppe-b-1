@@ -14,9 +14,11 @@
           required></b-form-input>
       </b-form-group>
 
-      <label for="example-datepicker">Geburtsdatum</label>
-      <b-form-input :disabled="formToReview" id="input-7" v-model="form.birthdate" type="date" placeholder="Geburtsdatum"
-        required></b-form-input>
+
+      <b-form-group id="input-group-5" label="Geburtsdatum:" label-for="input-9">
+        <b-form-input :disabled="formToReview" id="input-9" v-model="form.birthdate" type="date"
+          placeholder="Geburtsdatum" required></b-form-input>
+      </b-form-group>
 
       <b-form-group id="input-group-3" label="E-Mail-Adresse:" label-for="input-3"> </b-form-group>
       <b-form-input :disabled="formToReview" id="input-3" v-model="form.email" type="email" placeholder="E-Mail"
@@ -46,14 +48,15 @@
         <b-form-checkbox-group v-model="form.checked" id="checkboxes-5" :aria-describedby="ariaDescribedby"
           :disabled="formToReview">
           <b-form-checkbox value="breakfast">Frühstück?</b-form-checkbox><br />
-          <b-form-checkbox value="registration" id="registration">Registrieren?</b-form-checkbox>
+          <b-form-checkbox v-if="this.userStore.isLoggedIn == false" value="registration"
+            id="registration">Registrieren?</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
 
 
-      <b-form-input type="password" v-if="registrationChecked" :disabled="formToReview" id="input-7"
+      <b-form-input type="password" v-if="registrationEnabled" :disabled="formToReview" id="input-7"
         v-model="form.password" placeholder="Passwort" required></b-form-input>
-      <b-form-input type="password" v-if="registrationChecked" :disabled="formToReview" id="input-8"
+      <b-form-input type="password" v-if="registrationEnabled" :disabled="formToReview" id="input-8"
         v-model="passwordValidator" placeholder="Passwort wiederholen" required></b-form-input>
       <BAlert v-if="!passwordValid" :model-value="true" variant="warning">Passwörter stimmen nicht überein.</BAlert>
 
@@ -146,7 +149,7 @@ export default {
     departureBeforeArrival() {
       return this.form.departure < this.form.arrival ? false : true;
     },
-    registrationChecked() {
+    registrationEnabled() {
       return this.form.checked.includes('registration')
     },
     passwordValid() {
