@@ -56,7 +56,7 @@ export const useUserStore = defineStore('user', {
                     title: 'Success',
                     variant: 'success'
                 })
-                this.getUserInformation()
+                this.fetchUserInfo()
             }).catch((error) => {
                 show('Registration was not successful!', {
                     title: 'Error',
@@ -76,7 +76,7 @@ export const useUserStore = defineStore('user', {
                     title: 'Success',
                     variant: 'success'
                 })
-                this.getUserInformation()
+                this.fetchUserInfo()
             }).catch((error) => {
                 show('Login was not successful!', {
                     title: 'Error',
@@ -84,7 +84,7 @@ export const useUserStore = defineStore('user', {
                 })
             })
         },
-        async getUserInformation() {
+        async fetchUserInfo() {
             if (!this.isLoggedIn) {
                 return
             }
