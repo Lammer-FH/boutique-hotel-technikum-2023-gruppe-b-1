@@ -75,6 +75,8 @@ import { useRoomStore } from '../stores/useRoomStore.js';
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/useUserStore.js';
+import { useToast } from 'bootstrap-vue-next'
+
 
 
 export default {
@@ -98,8 +100,6 @@ export default {
       },
       emailValidator: '',
       formToReview: false,
-      arrival: Date,
-      departure: Date,
       isChecked: false,
       passwordValidator: ''
     }
@@ -109,15 +109,18 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const userStore = useUserStore()
+    const { show } = useToast()
     return {
       roomStore,
       route,
       router,
-      userStore
+      userStore,
+      show
     }
   },
   mounted() {
     this.roomStore.initRooms()
+    this.prefillForm()
   },
   computed: {
     preselectedRoom() {
@@ -141,7 +144,7 @@ export default {
       return true
     },
     departureBeforeArrival() {
-      return this.departure < this.arrival ? false : true;
+      return this.form.departure < this.form.arrival ? false : true;
     },
     registrationChecked() {
       return this.form.checked.includes('registration')
@@ -170,6 +173,23 @@ export default {
         await this.userStore.registerUser(this.form.firstName, this.form.lastName, this.form.email, this.form.firstName, this.form.password)
         this.router.push({ name: 'confirmation' })
       }
+    },
+    async prefillForm() {
+      // is user logged in if yes get user info and prefill form
+      if (!this.userStore.isLoggedIn) {
+        return
+      }
+      await this.userStore.fetchUserInfo()
+      this.form.firstName = this.userStore.user.firstname
+      this.form.lastName = this.userStore.user.lastname
+      this.form.email = this.userStore.user.email
+      this.emailValidator = this.userStore.user.email
+      this.form.birthdate = this.userStore.user.birthdate
+      this.show('Ihre Daten wurden aus Ihrem Profil übernommen.', {
+        variant: 'success',
+        autoHideDelay: 5000
+      })
+
     }
   }
 }
