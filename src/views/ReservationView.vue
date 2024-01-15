@@ -46,15 +46,24 @@
         <b-form-checkbox-group v-model="form.checked" id="checkboxes-5" :aria-describedby="ariaDescribedby"
           :disabled="formToReview">
           <b-form-checkbox value="breakfast">Frühstück?</b-form-checkbox><br />
-          <b-form-checkbox value="registration">Registrieren?</b-form-checkbox>
+          <b-form-checkbox value="registration" id="registration" v-model="isChecked">Registrieren?</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
+
+        <b-form-input v-if="isChecked" :disabled="formToReview" id="input-7" v-model="form.password" placeholder="Passwort"
+          required></b-form-input>
+        <b-form-input v-if="isChecked" :disabled="formToReview" id="input-8" v-model="passwordValidator" placeholder="Passwort wiederholen"
+          required></b-form-input>
+          <BAlert v-if="!passwordValid" :model-value="true" variant="warning">Passwörter stimmen nicht überein.</BAlert>
+          
+
 
       <b-button type="submit" id="btn" variant="primary" @click="submitForm"
         :disabled="!emailValid || !emptyInputs || !departureBeforeArrival">{{ formToReview ? 'Bestätigen' :
           'Buchen' }}</b-button>
       <b-button v-if="formToReview" @click="formToReview = false" variant="danger">Abbrechen</b-button>
     </b-form>
+
   </div>
 </template>
 
@@ -64,6 +73,7 @@ import Room from '../components/Room.vue'
 import { useRoomStore } from '../stores/useRoomStore.js';
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '../stores/useUserStore.js';
 
 
 export default {
@@ -82,22 +92,27 @@ export default {
         arrival: "",
         departure: "",
         birthdate: "",
-        checked: [""]
+        checked: [""],
+        password: ""
       },
       emailValidator: '',
       formToReview: false,
       arrival: Date,
-      departure: Date
+      departure: Date,
+      isChecked: false,
+      passwordValidator: ''
     }
   },
   setup() {
     const roomStore = useRoomStore()
     const route = useRoute()
     const router = useRouter()
+    const userStore = useUserStore()
     return {
       roomStore,
       route,
-      router
+      router,
+      userStore
     }
   },
   mounted() {
@@ -126,6 +141,15 @@ export default {
     },
     departureBeforeArrival() {
       return this.departure < this.arrival ? false : true;
+    },
+    passwordValid() {
+      if (this.form.password?.length == 0 || this.passwordValidator?.length == 0) {
+        return true
+      }
+      if (this.form.password.trim() === this.passwordValidator.trim()) {
+        return true
+      }
+      return false
     }
   },
   methods: {
@@ -137,9 +161,11 @@ export default {
         this.formToReview = true
         return
       }
-      const success = await this.roomStore.bookRoom(this.preselectedRoom.id, this.form)
+      const success = await this.roomStore.bookRoom(this.preselectedRoom.id, this.form) 
+      const registrationSuccess = await this.userStore.registerUser(this.form.firstName, this.form.lastName, this.form.email, this.form.firstName, this.form.password)
       if (success && this.roomStore.booking) {
         this.router.push({ name: 'confirmation' })
+
       }
     }
   }
