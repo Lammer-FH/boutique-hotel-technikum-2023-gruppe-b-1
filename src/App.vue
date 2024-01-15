@@ -2,15 +2,15 @@
   <BToaster />
 
   <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'dark'" class="no-print">
-    <BNavbarBrand href="/">
+    <BNavbarBrand to="/">
       <img src="../images/logo.png" class="logo" alt="Website Logo" />
     </BNavbarBrand>
     <BNavbarToggle target="nav-collapse" />
     <BCollapse id="nav-collapse" is-nav>
       <BNavbarNav>
-        <BNavItem href="/">Home</BNavItem>
-        <BNavItem href="/about">About</BNavItem>
-        <BNavItem href="/impressum">Impressum</BNavItem>
+        <BNavItem to="/">Home</BNavItem>
+        <BNavItem to="/about">About</BNavItem>
+        <BNavItem to="/impressum">Impressum</BNavItem>
       </BNavbarNav>
     </BCollapse>
     <LoginButton @click="toggleLogin"></LoginButton>
